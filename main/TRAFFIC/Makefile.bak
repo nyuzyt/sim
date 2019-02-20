@@ -1,0 +1,296 @@
+ACC=
+CC=$(ACC) gcc
+REMCFLAGS	  = -Wall -Wshadow -DLIST_STATS -DLIST_HISTOGRAM $(SIMGRAPH) \
+				-I.. -I../INPUTACTIONS
+
+DEST	      = .
+
+HDRS	      = traffic.h \
+		trafficTable.h
+
+INSTALL	      = /etc/install
+
+LD	      = ld
+
+LDFLAGS	      =
+
+LIBS	      =
+
+MAKEFILE      = Makefile
+
+OBJS	      = ${SRCS:.c=.o}
+
+PRINT	      = pr
+
+PROGRAM       = traffic.o
+
+SHELL	      = /bin/sh
+
+SRCS	      = bernoulli_iid_nonuniform.c \
+		bernoulli_iid_uniform.c \
+		null.c \
+		keepfull.c \
+		periodicTrace.c \
+		trace.c \
+		tracePacket.c \
+		bursty_nonuniform.c \
+		bursty.c
+
+SYSHDRS	      =
+
+all:
+		$(MAKE) optall
+
+optall: 
+		$(MAKE) $(PROGRAM) CFLAGS="-O3 $(REMCFLAGS)"
+
+debugall:
+		$(MAKE) $(PROGRAM) CFLAGS="-g $(REMCFLAGS)"
+
+$(PROGRAM)::     $(OBJS) $(LIBS)
+		@echo "Linking clean sim: $(PROGRAM) ..."
+		$(LD) -r $(OBJS) $(LDFLAGS) $(LIBS) -o $(PROGRAM)
+		@echo "done"
+
+clean:;		rm -f $(OBJS) $(PROGRAM) core
+
+clobber:;	rm -f $(OBJS) $(PROGRAM) core tags
+
+##depend:;	@mkmf -f $(MAKEFILE) ROOT=$(ROOT)
+
+depend:;	makedepend -o.o -- $(REMCFLAGS) -- $(SRCS)
+
+echo:;		@echo $(HDRS) $(SRCS)
+
+index:;		ctags -wx $(HDRS) $(SRCS)
+
+install::	$(PROGRAM)
+		@echo Installing $(PROGRAM) in $(DEST)
+#		@-strip $(PROGRAM)
+		if [ $(DEST) != . ]; then \
+		(rm -f $(DEST)/$(PROGRAM); $(INSTALL) -f $(DEST) $(PROGRAM)); fi
+
+print:;		@$(PRINT) $(HDRS) $(SRCS)
+
+tags:           $(HDRS) $(SRCS); @ctags $(HDRS) $(SRCS)
+
+update:		$(DEST)/$(PROGRAM)
+
+###
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+bernoulli_iid_nonuniform.o: /usr/include/stdio.h /usr/include/features.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/predefs.h
+bernoulli_iid_nonuniform.o: /usr/include/sys/cdefs.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/wordsize.h
+bernoulli_iid_nonuniform.o: /usr/include/gnu/stubs.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/types.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/typesizes.h
+bernoulli_iid_nonuniform.o: /usr/include/libio.h /usr/include/_G_config.h
+bernoulli_iid_nonuniform.o: /usr/include/wchar.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/stdio_lim.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/sys_errlist.h
+bernoulli_iid_nonuniform.o: /usr/include/stdlib.h /usr/include/sys/types.h
+bernoulli_iid_nonuniform.o: /usr/include/time.h /usr/include/endian.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/endian.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/byteswap.h
+bernoulli_iid_nonuniform.o: /usr/include/sys/select.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/select.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/sigset.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/time.h
+bernoulli_iid_nonuniform.o: /usr/include/sys/sysmacros.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/pthreadtypes.h
+bernoulli_iid_nonuniform.o: /usr/include/alloca.h ../sim.h
+bernoulli_iid_nonuniform.o: /usr/include/math.h /usr/include/bits/huge_val.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/huge_valf.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/huge_vall.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/mathdef.h
+bernoulli_iid_nonuniform.o: /usr/include/bits/mathcalls.h ../bitmap.h
+bernoulli_iid_nonuniform.o: ../stat.h ../histogram.h ../lists.h
+bernoulli_iid_nonuniform.o: ../switchStats.h ../types.h ../latencyStats.h
+bernoulli_iid_nonuniform.o: ../functionTable.h traffic.h
+bernoulli_iid_nonuniform.o: ../INPUTACTIONS/inputAction.h
+bernoulli_iid_nonuniform.o: /usr/include/string.h /usr/include/xlocale.h
+bernoulli_iid_uniform.o: /usr/include/stdio.h /usr/include/features.h
+bernoulli_iid_uniform.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+bernoulli_iid_uniform.o: /usr/include/bits/wordsize.h
+bernoulli_iid_uniform.o: /usr/include/gnu/stubs.h /usr/include/bits/types.h
+bernoulli_iid_uniform.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+bernoulli_iid_uniform.o: /usr/include/_G_config.h /usr/include/wchar.h
+bernoulli_iid_uniform.o: /usr/include/bits/stdio_lim.h
+bernoulli_iid_uniform.o: /usr/include/bits/sys_errlist.h
+bernoulli_iid_uniform.o: /usr/include/stdlib.h /usr/include/sys/types.h
+bernoulli_iid_uniform.o: /usr/include/time.h /usr/include/endian.h
+bernoulli_iid_uniform.o: /usr/include/bits/endian.h
+bernoulli_iid_uniform.o: /usr/include/bits/byteswap.h
+bernoulli_iid_uniform.o: /usr/include/sys/select.h /usr/include/bits/select.h
+bernoulli_iid_uniform.o: /usr/include/bits/sigset.h /usr/include/bits/time.h
+bernoulli_iid_uniform.o: /usr/include/sys/sysmacros.h
+bernoulli_iid_uniform.o: /usr/include/bits/pthreadtypes.h
+bernoulli_iid_uniform.o: /usr/include/alloca.h ../sim.h /usr/include/math.h
+bernoulli_iid_uniform.o: /usr/include/bits/huge_val.h
+bernoulli_iid_uniform.o: /usr/include/bits/huge_valf.h
+bernoulli_iid_uniform.o: /usr/include/bits/huge_vall.h
+bernoulli_iid_uniform.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+bernoulli_iid_uniform.o: /usr/include/bits/mathdef.h
+bernoulli_iid_uniform.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+bernoulli_iid_uniform.o: ../histogram.h ../lists.h ../switchStats.h
+bernoulli_iid_uniform.o: ../types.h ../latencyStats.h ../functionTable.h
+bernoulli_iid_uniform.o: traffic.h ../INPUTACTIONS/inputAction.h
+bernoulli_iid_uniform.o: /usr/include/string.h /usr/include/xlocale.h
+null.o: /usr/include/stdio.h /usr/include/features.h
+null.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+null.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+null.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+null.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+null.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+null.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+null.o: /usr/include/endian.h /usr/include/bits/endian.h
+null.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+null.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+null.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+null.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h ../sim.h
+null.o: /usr/include/math.h /usr/include/bits/huge_val.h
+null.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+null.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+null.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+null.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+null.o: ../latencyStats.h ../functionTable.h traffic.h
+keepfull.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+keepfull.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+keepfull.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+keepfull.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+keepfull.o: /usr/include/libio.h /usr/include/_G_config.h
+keepfull.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+keepfull.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+keepfull.o: /usr/include/sys/types.h /usr/include/time.h
+keepfull.o: /usr/include/endian.h /usr/include/bits/endian.h
+keepfull.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+keepfull.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+keepfull.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+keepfull.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+keepfull.o: /usr/include/math.h /usr/include/bits/huge_val.h
+keepfull.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+keepfull.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+keepfull.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+keepfull.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+keepfull.o: ../types.h ../latencyStats.h ../functionTable.h traffic.h
+keepfull.o: ../INPUTACTIONS/inputAction.h
+periodicTrace.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+periodicTrace.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+periodicTrace.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+periodicTrace.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+periodicTrace.o: /usr/include/libio.h /usr/include/_G_config.h
+periodicTrace.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+periodicTrace.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+periodicTrace.o: /usr/include/sys/types.h /usr/include/time.h
+periodicTrace.o: /usr/include/endian.h /usr/include/bits/endian.h
+periodicTrace.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+periodicTrace.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+periodicTrace.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+periodicTrace.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+periodicTrace.o: /usr/include/math.h /usr/include/bits/huge_val.h
+periodicTrace.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+periodicTrace.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+periodicTrace.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+periodicTrace.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+periodicTrace.o: ../switchStats.h ../types.h ../latencyStats.h
+periodicTrace.o: ../functionTable.h traffic.h ../INPUTACTIONS/inputAction.h
+trace.o: /usr/include/signal.h /usr/include/features.h
+trace.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+trace.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+trace.o: /usr/include/bits/sigset.h /usr/include/bits/types.h
+trace.o: /usr/include/bits/typesizes.h /usr/include/bits/signum.h
+trace.o: /usr/include/time.h /usr/include/bits/siginfo.h
+trace.o: /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h
+trace.o: /usr/include/asm/sigcontext.h /usr/include/bits/sigstack.h
+trace.o: /usr/include/bits/pthreadtypes.h /usr/include/endian.h
+trace.o: /usr/include/bits/endian.h /usr/include/bits/byteswap.h
+trace.o: /usr/include/bits/sigthread.h /usr/include/sys/types.h
+trace.o: /usr/include/sys/select.h /usr/include/bits/select.h
+trace.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+trace.o: /usr/include/unistd.h /usr/include/bits/posix_opt.h
+trace.o: /usr/include/bits/confname.h /usr/include/getopt.h
+trace.o: /usr/include/string.h /usr/include/xlocale.h ../sim.h
+trace.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+trace.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+trace.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+trace.o: /usr/include/alloca.h /usr/include/math.h
+trace.o: /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h
+trace.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+trace.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+trace.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h ../histogram.h
+trace.o: ../lists.h ../switchStats.h ../types.h ../latencyStats.h
+trace.o: ../functionTable.h traffic.h ../INPUTACTIONS/inputAction.h
+tracePacket.o: /usr/include/signal.h /usr/include/features.h
+tracePacket.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+tracePacket.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+tracePacket.o: /usr/include/bits/sigset.h /usr/include/bits/types.h
+tracePacket.o: /usr/include/bits/typesizes.h /usr/include/bits/signum.h
+tracePacket.o: /usr/include/time.h /usr/include/bits/siginfo.h
+tracePacket.o: /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h
+tracePacket.o: /usr/include/asm/sigcontext.h /usr/include/bits/sigstack.h
+tracePacket.o: /usr/include/bits/pthreadtypes.h /usr/include/endian.h
+tracePacket.o: /usr/include/bits/endian.h /usr/include/bits/byteswap.h
+tracePacket.o: /usr/include/bits/sigthread.h /usr/include/string.h
+tracePacket.o: /usr/include/xlocale.h /usr/include/sys/types.h
+tracePacket.o: /usr/include/sys/select.h /usr/include/bits/select.h
+tracePacket.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+tracePacket.o: /usr/include/unistd.h /usr/include/bits/posix_opt.h
+tracePacket.o: /usr/include/bits/confname.h /usr/include/getopt.h ../sim.h
+tracePacket.o: /usr/include/stdio.h /usr/include/libio.h
+tracePacket.o: /usr/include/_G_config.h /usr/include/wchar.h
+tracePacket.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+tracePacket.o: /usr/include/stdlib.h /usr/include/alloca.h
+tracePacket.o: /usr/include/math.h /usr/include/bits/huge_val.h
+tracePacket.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+tracePacket.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+tracePacket.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+tracePacket.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+tracePacket.o: ../switchStats.h ../types.h ../latencyStats.h
+tracePacket.o: ../functionTable.h traffic.h ../INPUTACTIONS/inputAction.h
+tracePacket.o: trace.h
+bursty_nonuniform.o: /usr/include/stdio.h /usr/include/features.h
+bursty_nonuniform.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+bursty_nonuniform.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+bursty_nonuniform.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+bursty_nonuniform.o: /usr/include/libio.h /usr/include/_G_config.h
+bursty_nonuniform.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+bursty_nonuniform.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+bursty_nonuniform.o: /usr/include/sys/types.h /usr/include/time.h
+bursty_nonuniform.o: /usr/include/endian.h /usr/include/bits/endian.h
+bursty_nonuniform.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+bursty_nonuniform.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+bursty_nonuniform.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+bursty_nonuniform.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+bursty_nonuniform.o: ../sim.h /usr/include/math.h
+bursty_nonuniform.o: /usr/include/bits/huge_val.h
+bursty_nonuniform.o: /usr/include/bits/huge_valf.h
+bursty_nonuniform.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+bursty_nonuniform.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+bursty_nonuniform.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+bursty_nonuniform.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+bursty_nonuniform.o: ../latencyStats.h ../functionTable.h traffic.h
+bursty_nonuniform.o: ../INPUTACTIONS/inputAction.h /usr/include/string.h
+bursty_nonuniform.o: /usr/include/xlocale.h
+bursty.o: /usr/include/stdio.h /usr/include/features.h
+bursty.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+bursty.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+bursty.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+bursty.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+bursty.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+bursty.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+bursty.o: /usr/include/endian.h /usr/include/bits/endian.h
+bursty.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+bursty.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+bursty.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+bursty.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h ../sim.h
+bursty.o: /usr/include/math.h /usr/include/bits/huge_val.h
+bursty.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+bursty.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+bursty.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+bursty.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+bursty.o: ../types.h ../latencyStats.h ../functionTable.h traffic.h
+bursty.o: ../INPUTACTIONS/inputAction.h /usr/include/string.h
+bursty.o: /usr/include/xlocale.h

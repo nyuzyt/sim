@@ -1,0 +1,1029 @@
+ACC=
+CC=$(ACC) gcc
+REMCFLAGS	      =  -Wall -Wshadow -I.. -DLIST_HISTOGRAM -DLIST_STATS $(SIMGRAPH)
+
+DEST	      = .
+
+HDRS	      = algorithm.h\
+		algorithmTable.h\
+		assign2.h\
+		miscfns.h\
+		pim.h\
+		rr.h\
+		scheduleStats.h\
+
+INSTALL	      = /etc/install
+
+LD	      = ld
+
+LDFLAGS	      =
+
+LIBS	      =
+
+OBJS	      = ${SRCS:.c=.o}
+
+PRINT	      = pr
+
+PROGRAM       = algorithms.o
+
+SHELL	      = /bin/sh
+
+SRCS          = ap2driver.c \
+        assign2sap.c \
+        fifo.c \
+        future.c \
+        gs_lqf.c \
+        gs_ocf.c \
+        gsaMatch.c \
+        ilpf.c \
+        ilqf.c \
+        iocf.c \
+        iopf.c \
+        lpf.c \
+        lpf_delay.c \
+        lqf.c \
+        maximum.c \
+        maxrand.c \
+        maxsize.c \
+        mucf.c \
+        mcast_conc_residue.c \
+        mcast_dist_residue.c \
+        mcast_random.c \
+        mcast_slip.c \
+        mcast_tatra.c \
+        mcast_wt_fanout.c \
+        mcast_wt_residue.c \
+        miscfns.c\
+        neural.c \
+        nullSchedulingAlgorithm.c \
+        ocf.c \
+        opf.c \
+        opf_delay.c \
+        pim.c \
+        pri_fifo.c \
+        pri_lqf.c \
+        pri_mcast_random.c \
+        pri_ocf.c \
+        pri_islip.c\
+        pri_combo.c\
+        pristrict_lqf.c \
+        pristrict_ocf.c \
+        rr.c \
+        scheduleStats.c \
+        islip.c \
+        wfa.c \
+        wwfa.c
+
+SYSHDRS	      =
+all:	
+		$(MAKE) optall
+
+optall: 
+		$(MAKE) $(PROGRAM) CFLAGS="-O3 $(REMCFLAGS)"
+
+debugall:
+		$(MAKE) $(PROGRAM) CFLAGS="-g $(REMCFLAGS)"
+
+$(PROGRAM)::     $(OBJS) $(LIBS)
+		@echo "Linking clean sim: $(PROGRAM) ..."
+		$(LD) -r $(OBJS) $(LDFLAGS) $(LIBS) -o $(PROGRAM)
+		@echo "done"
+
+clean:;		rm -f $(OBJS) $(PROGRAM) core
+
+clobber:;	rm -f $(OBJS) $(PROGRAM) core tags
+
+depend:;	makedepend -o.o -- $(REMCFLAGS) -- $(SRCS)
+
+echo:;		@echo $(HDRS) $(SRCS)
+
+index:;		ctags -wx $(HDRS) $(SRCS)
+
+install::	$(PROGRAM)
+		@echo Installing $(PROGRAM) in $(DEST)
+#		@-strip $(PROGRAM)
+		@if [ $(DEST) != . ]; then \
+		(rm -f $(DEST)/$(PROGRAM); $(INSTALL) -f $(DEST) $(PROGRAM)); fi
+
+print:;		@$(PRINT) $(HDRS) $(SRCS)
+
+tags:           $(HDRS) $(SRCS); @ctags $(HDRS) $(SRCS)
+
+update:		$(DEST)/$(PROGRAM)
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+ap2driver.o: /usr/include/stdio.h /usr/include/features.h
+ap2driver.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+ap2driver.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+ap2driver.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+ap2driver.o: /usr/include/libio.h /usr/include/_G_config.h
+ap2driver.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+ap2driver.o: /usr/include/bits/sys_errlist.h /usr/include/malloc.h assign2.h
+ap2driver.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+ap2driver.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+ap2driver.o: /usr/include/bits/posix2_lim.h
+assign2sap.o: /usr/include/stdio.h /usr/include/features.h
+assign2sap.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+assign2sap.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+assign2sap.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+assign2sap.o: /usr/include/libio.h /usr/include/_G_config.h
+assign2sap.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+assign2sap.o: /usr/include/bits/sys_errlist.h /usr/include/malloc.h assign2.h
+assign2sap.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+assign2sap.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+assign2sap.o: /usr/include/bits/posix2_lim.h
+fifo.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+fifo.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+fifo.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+fifo.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+fifo.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+fifo.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+fifo.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+fifo.o: /usr/include/endian.h /usr/include/bits/endian.h
+fifo.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+fifo.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+fifo.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+fifo.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+fifo.o: /usr/include/math.h /usr/include/bits/huge_val.h
+fifo.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+fifo.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+fifo.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+fifo.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+fifo.o: ../latencyStats.h ../functionTable.h algorithm.h
+future.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+future.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+future.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+future.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+future.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+future.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+future.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+future.o: /usr/include/endian.h /usr/include/bits/endian.h
+future.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+future.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+future.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+future.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+future.o: /usr/include/math.h /usr/include/bits/huge_val.h
+future.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+future.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+future.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+future.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+future.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+future.o: future.h
+gs_lqf.o: /usr/include/string.h /usr/include/features.h
+gs_lqf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+gs_lqf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+gs_lqf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+gs_lqf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+gs_lqf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+gs_lqf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+gs_lqf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+gs_lqf.o: /usr/include/endian.h /usr/include/bits/endian.h
+gs_lqf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+gs_lqf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+gs_lqf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+gs_lqf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+gs_lqf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+gs_lqf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+gs_lqf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+gs_lqf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+gs_lqf.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+gs_lqf.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+gs_lqf.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+gs_lqf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+gs_lqf.o: /usr/include/bits/posix2_lim.h
+gs_ocf.o: /usr/include/string.h /usr/include/features.h
+gs_ocf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+gs_ocf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+gs_ocf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+gs_ocf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+gs_ocf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+gs_ocf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+gs_ocf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+gs_ocf.o: /usr/include/endian.h /usr/include/bits/endian.h
+gs_ocf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+gs_ocf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+gs_ocf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+gs_ocf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+gs_ocf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+gs_ocf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+gs_ocf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+gs_ocf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+gs_ocf.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+gs_ocf.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+gs_ocf.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+gs_ocf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+gs_ocf.o: /usr/include/bits/posix2_lim.h
+gsaMatch.o: /usr/include/stdio.h /usr/include/features.h
+gsaMatch.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+gsaMatch.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+gsaMatch.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+gsaMatch.o: /usr/include/libio.h /usr/include/_G_config.h
+gsaMatch.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+gsaMatch.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+gsaMatch.o: /usr/include/sys/types.h /usr/include/time.h
+gsaMatch.o: /usr/include/endian.h /usr/include/bits/endian.h
+gsaMatch.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+gsaMatch.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+gsaMatch.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+gsaMatch.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+gsaMatch.o: /usr/include/malloc.h
+ilpf.o: /usr/include/string.h /usr/include/features.h
+ilpf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+ilpf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+ilpf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+ilpf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+ilpf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+ilpf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+ilpf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+ilpf.o: /usr/include/endian.h /usr/include/bits/endian.h
+ilpf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+ilpf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+ilpf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+ilpf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+ilpf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+ilpf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+ilpf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+ilpf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+ilpf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+ilpf.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+ilpf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+ilpf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+ilpf.o: /usr/include/bits/posix2_lim.h
+ilqf.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+ilqf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+ilqf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+ilqf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+ilqf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+ilqf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+ilqf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+ilqf.o: /usr/include/endian.h /usr/include/bits/endian.h
+ilqf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+ilqf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+ilqf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+ilqf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+ilqf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+ilqf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+ilqf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+ilqf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+ilqf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+ilqf.o: ../latencyStats.h ../functionTable.h algorithm.h ilqf.h
+ilqf.o: scheduleStats.h
+iocf.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+iocf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+iocf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+iocf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+iocf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+iocf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+iocf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+iocf.o: /usr/include/endian.h /usr/include/bits/endian.h
+iocf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+iocf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+iocf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+iocf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+iocf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+iocf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+iocf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+iocf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+iocf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+iocf.o: ../latencyStats.h ../functionTable.h algorithm.h ilqf.h
+iocf.o: scheduleStats.h
+iopf.o: /usr/include/string.h /usr/include/features.h
+iopf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+iopf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+iopf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+iopf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+iopf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+iopf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+iopf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+iopf.o: /usr/include/endian.h /usr/include/bits/endian.h
+iopf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+iopf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+iopf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+iopf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+iopf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+iopf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+iopf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+iopf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+iopf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+iopf.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+iopf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+iopf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+iopf.o: /usr/include/bits/posix2_lim.h
+lpf.o: /usr/include/string.h /usr/include/features.h
+lpf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+lpf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+lpf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+lpf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+lpf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+lpf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+lpf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+lpf.o: /usr/include/endian.h /usr/include/bits/endian.h
+lpf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+lpf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+lpf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+lpf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+lpf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+lpf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+lpf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+lpf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+lpf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+lpf.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+lpf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+lpf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+lpf.o: /usr/include/bits/posix2_lim.h
+lpf_delay.o: /usr/include/string.h /usr/include/features.h
+lpf_delay.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+lpf_delay.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+lpf_delay.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+lpf_delay.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+lpf_delay.o: /usr/include/libio.h /usr/include/_G_config.h
+lpf_delay.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+lpf_delay.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+lpf_delay.o: /usr/include/sys/types.h /usr/include/time.h
+lpf_delay.o: /usr/include/endian.h /usr/include/bits/endian.h
+lpf_delay.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+lpf_delay.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+lpf_delay.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+lpf_delay.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+lpf_delay.o: /usr/include/math.h /usr/include/bits/huge_val.h
+lpf_delay.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+lpf_delay.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+lpf_delay.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+lpf_delay.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+lpf_delay.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+lpf_delay.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+lpf_delay.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+lpf_delay.o: /usr/include/bits/posix2_lim.h
+lqf.o: /usr/include/string.h /usr/include/features.h
+lqf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+lqf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+lqf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+lqf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+lqf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+lqf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+lqf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+lqf.o: /usr/include/endian.h /usr/include/bits/endian.h
+lqf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+lqf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+lqf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+lqf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+lqf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+lqf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+lqf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+lqf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+lqf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+lqf.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+lqf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+lqf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+lqf.o: /usr/include/bits/posix2_lim.h
+maximum.o: /usr/include/string.h /usr/include/features.h
+maximum.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+maximum.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+maximum.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+maximum.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+maximum.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+maximum.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+maximum.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+maximum.o: /usr/include/endian.h /usr/include/bits/endian.h
+maximum.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+maximum.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+maximum.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+maximum.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+maximum.o: /usr/include/math.h /usr/include/bits/huge_val.h
+maximum.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+maximum.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+maximum.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+maximum.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+maximum.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+maxrand.o: /usr/include/string.h /usr/include/features.h
+maxrand.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+maxrand.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+maxrand.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+maxrand.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+maxrand.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+maxrand.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+maxrand.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+maxrand.o: /usr/include/endian.h /usr/include/bits/endian.h
+maxrand.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+maxrand.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+maxrand.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+maxrand.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+maxrand.o: /usr/include/math.h /usr/include/bits/huge_val.h
+maxrand.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+maxrand.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+maxrand.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+maxrand.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+maxrand.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+maxsize.o: /usr/include/string.h /usr/include/features.h
+maxsize.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+maxsize.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+maxsize.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+maxsize.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+maxsize.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+maxsize.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+maxsize.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+maxsize.o: /usr/include/endian.h /usr/include/bits/endian.h
+maxsize.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+maxsize.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+maxsize.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+maxsize.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+maxsize.o: /usr/include/math.h /usr/include/bits/huge_val.h
+maxsize.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+maxsize.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+maxsize.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+maxsize.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+maxsize.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+maxsize.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+maxsize.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+maxsize.o: /usr/include/bits/posix2_lim.h
+mucf.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+mucf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mucf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mucf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mucf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+mucf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+mucf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+mucf.o: /usr/include/endian.h /usr/include/bits/endian.h
+mucf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mucf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mucf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mucf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mucf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+mucf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+mucf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+mucf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+mucf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+mucf.o: ../latencyStats.h ../functionTable.h algorithm.h ilqf.h
+mucf.o: scheduleStats.h
+mcast_conc_residue.o: /usr/include/string.h /usr/include/features.h
+mcast_conc_residue.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_conc_residue.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_conc_residue.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+mcast_conc_residue.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_conc_residue.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_conc_residue.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_conc_residue.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_conc_residue.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_conc_residue.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_conc_residue.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_conc_residue.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_conc_residue.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_conc_residue.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_conc_residue.o: /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_conc_residue.o: /usr/include/bits/huge_valf.h
+mcast_conc_residue.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+mcast_conc_residue.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+mcast_conc_residue.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+mcast_conc_residue.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+mcast_conc_residue.o: ../latencyStats.h ../functionTable.h algorithm.h
+mcast_dist_residue.o: /usr/include/string.h /usr/include/features.h
+mcast_dist_residue.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_dist_residue.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_dist_residue.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+mcast_dist_residue.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_dist_residue.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_dist_residue.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_dist_residue.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_dist_residue.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_dist_residue.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_dist_residue.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_dist_residue.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_dist_residue.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_dist_residue.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_dist_residue.o: /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_dist_residue.o: /usr/include/bits/huge_valf.h
+mcast_dist_residue.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+mcast_dist_residue.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+mcast_dist_residue.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+mcast_dist_residue.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+mcast_dist_residue.o: ../latencyStats.h ../functionTable.h algorithm.h
+mcast_random.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+mcast_random.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_random.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_random.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_random.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_random.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_random.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_random.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_random.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_random.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_random.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_random.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_random.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_random.o: /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_random.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+mcast_random.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+mcast_random.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+mcast_random.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+mcast_random.o: ../switchStats.h ../types.h ../latencyStats.h
+mcast_random.o: ../functionTable.h algorithm.h
+mcast_slip.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+mcast_slip.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_slip.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_slip.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_slip.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_slip.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_slip.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_slip.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_slip.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_slip.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_slip.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_slip.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_slip.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_slip.o: /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_slip.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+mcast_slip.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+mcast_slip.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+mcast_slip.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+mcast_slip.o: ../switchStats.h ../types.h ../latencyStats.h
+mcast_slip.o: ../functionTable.h algorithm.h mcast_slip.h scheduleStats.h
+mcast_tatra.o: /usr/include/stdio.h /usr/include/features.h
+mcast_tatra.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_tatra.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_tatra.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_tatra.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_tatra.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_tatra.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_tatra.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_tatra.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_tatra.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_tatra.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_tatra.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_tatra.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_tatra.o: ../sim.h /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_tatra.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+mcast_tatra.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+mcast_tatra.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+mcast_tatra.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+mcast_tatra.o: ../switchStats.h ../types.h ../latencyStats.h
+mcast_tatra.o: ../functionTable.h algorithm.h
+mcast_wt_fanout.o: /usr/include/stdio.h /usr/include/features.h
+mcast_wt_fanout.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_wt_fanout.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_wt_fanout.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_wt_fanout.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_wt_fanout.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_wt_fanout.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_wt_fanout.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_wt_fanout.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_wt_fanout.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_wt_fanout.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_wt_fanout.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_wt_fanout.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_wt_fanout.o: ../sim.h /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_wt_fanout.o: /usr/include/bits/huge_valf.h
+mcast_wt_fanout.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+mcast_wt_fanout.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+mcast_wt_fanout.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+mcast_wt_fanout.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+mcast_wt_fanout.o: ../latencyStats.h ../functionTable.h algorithm.h
+mcast_wt_residue.o: /usr/include/stdio.h /usr/include/features.h
+mcast_wt_residue.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+mcast_wt_residue.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+mcast_wt_residue.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+mcast_wt_residue.o: /usr/include/libio.h /usr/include/_G_config.h
+mcast_wt_residue.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+mcast_wt_residue.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+mcast_wt_residue.o: /usr/include/sys/types.h /usr/include/time.h
+mcast_wt_residue.o: /usr/include/endian.h /usr/include/bits/endian.h
+mcast_wt_residue.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+mcast_wt_residue.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+mcast_wt_residue.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+mcast_wt_residue.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+mcast_wt_residue.o: /usr/include/string.h /usr/include/xlocale.h ../sim.h
+mcast_wt_residue.o: /usr/include/math.h /usr/include/bits/huge_val.h
+mcast_wt_residue.o: /usr/include/bits/huge_valf.h
+mcast_wt_residue.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+mcast_wt_residue.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+mcast_wt_residue.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+mcast_wt_residue.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+mcast_wt_residue.o: ../latencyStats.h ../functionTable.h algorithm.h
+miscfns.o: /usr/include/string.h /usr/include/features.h
+miscfns.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+miscfns.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+miscfns.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+miscfns.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+miscfns.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+miscfns.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+miscfns.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+miscfns.o: /usr/include/endian.h /usr/include/bits/endian.h
+miscfns.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+miscfns.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+miscfns.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+miscfns.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+miscfns.o: /usr/include/math.h /usr/include/bits/huge_val.h
+miscfns.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+miscfns.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+miscfns.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+miscfns.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+miscfns.o: ../types.h ../latencyStats.h ../functionTable.h rr.h
+miscfns.o: scheduleStats.h
+neural.o: /usr/include/stdlib.h /usr/include/features.h
+neural.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+neural.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+neural.o: /usr/include/sys/types.h /usr/include/bits/types.h
+neural.o: /usr/include/bits/typesizes.h /usr/include/time.h
+neural.o: /usr/include/endian.h /usr/include/bits/endian.h
+neural.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+neural.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+neural.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+neural.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+neural.o: /usr/include/math.h /usr/include/bits/huge_val.h
+neural.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+neural.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+neural.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+neural.o: /usr/include/string.h /usr/include/xlocale.h ../sim.h
+neural.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+neural.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+neural.o: /usr/include/bits/sys_errlist.h ../bitmap.h ../stat.h
+neural.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+neural.o: ../latencyStats.h ../functionTable.h algorithm.h neural.h
+nullSchedulingAlgorithm.o: ../sim.h /usr/include/stdio.h
+nullSchedulingAlgorithm.o: /usr/include/features.h
+nullSchedulingAlgorithm.o: /usr/include/bits/predefs.h
+nullSchedulingAlgorithm.o: /usr/include/sys/cdefs.h
+nullSchedulingAlgorithm.o: /usr/include/bits/wordsize.h
+nullSchedulingAlgorithm.o: /usr/include/gnu/stubs.h /usr/include/bits/types.h
+nullSchedulingAlgorithm.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+nullSchedulingAlgorithm.o: /usr/include/_G_config.h /usr/include/wchar.h
+nullSchedulingAlgorithm.o: /usr/include/bits/stdio_lim.h
+nullSchedulingAlgorithm.o: /usr/include/bits/sys_errlist.h
+nullSchedulingAlgorithm.o: /usr/include/stdlib.h /usr/include/sys/types.h
+nullSchedulingAlgorithm.o: /usr/include/time.h /usr/include/endian.h
+nullSchedulingAlgorithm.o: /usr/include/bits/endian.h
+nullSchedulingAlgorithm.o: /usr/include/bits/byteswap.h
+nullSchedulingAlgorithm.o: /usr/include/sys/select.h
+nullSchedulingAlgorithm.o: /usr/include/bits/select.h
+nullSchedulingAlgorithm.o: /usr/include/bits/sigset.h
+nullSchedulingAlgorithm.o: /usr/include/bits/time.h
+nullSchedulingAlgorithm.o: /usr/include/sys/sysmacros.h
+nullSchedulingAlgorithm.o: /usr/include/bits/pthreadtypes.h
+nullSchedulingAlgorithm.o: /usr/include/alloca.h /usr/include/math.h
+nullSchedulingAlgorithm.o: /usr/include/bits/huge_val.h
+nullSchedulingAlgorithm.o: /usr/include/bits/huge_valf.h
+nullSchedulingAlgorithm.o: /usr/include/bits/huge_vall.h
+nullSchedulingAlgorithm.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+nullSchedulingAlgorithm.o: /usr/include/bits/mathdef.h
+nullSchedulingAlgorithm.o: /usr/include/bits/mathcalls.h ../bitmap.h
+nullSchedulingAlgorithm.o: ../stat.h ../histogram.h ../lists.h
+nullSchedulingAlgorithm.o: ../switchStats.h ../types.h ../latencyStats.h
+nullSchedulingAlgorithm.o: ../functionTable.h algorithm.h
+ocf.o: /usr/include/string.h /usr/include/features.h
+ocf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+ocf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+ocf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+ocf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+ocf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+ocf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+ocf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+ocf.o: /usr/include/endian.h /usr/include/bits/endian.h
+ocf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+ocf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+ocf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+ocf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+ocf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+ocf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+ocf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+ocf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+ocf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+ocf.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+ocf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+ocf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+ocf.o: /usr/include/bits/posix2_lim.h
+opf.o: /usr/include/string.h /usr/include/features.h
+opf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+opf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+opf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+opf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+opf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+opf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+opf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+opf.o: /usr/include/endian.h /usr/include/bits/endian.h
+opf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+opf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+opf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+opf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+opf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+opf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+opf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+opf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+opf.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+opf.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+opf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+opf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+opf.o: /usr/include/bits/posix2_lim.h
+opf_delay.o: /usr/include/string.h /usr/include/features.h
+opf_delay.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+opf_delay.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+opf_delay.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+opf_delay.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+opf_delay.o: /usr/include/libio.h /usr/include/_G_config.h
+opf_delay.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+opf_delay.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+opf_delay.o: /usr/include/sys/types.h /usr/include/time.h
+opf_delay.o: /usr/include/endian.h /usr/include/bits/endian.h
+opf_delay.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+opf_delay.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+opf_delay.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+opf_delay.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+opf_delay.o: /usr/include/math.h /usr/include/bits/huge_val.h
+opf_delay.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+opf_delay.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+opf_delay.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+opf_delay.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+opf_delay.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+opf_delay.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+opf_delay.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+opf_delay.o: /usr/include/bits/posix2_lim.h
+pim.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+pim.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pim.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pim.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pim.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+pim.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+pim.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+pim.o: /usr/include/endian.h /usr/include/bits/endian.h
+pim.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pim.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pim.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pim.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pim.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pim.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pim.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pim.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+pim.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+pim.o: ../latencyStats.h ../functionTable.h algorithm.h pim.h scheduleStats.h
+pri_fifo.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+pri_fifo.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pri_fifo.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pri_fifo.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pri_fifo.o: /usr/include/libio.h /usr/include/_G_config.h
+pri_fifo.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+pri_fifo.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+pri_fifo.o: /usr/include/sys/types.h /usr/include/time.h
+pri_fifo.o: /usr/include/endian.h /usr/include/bits/endian.h
+pri_fifo.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pri_fifo.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pri_fifo.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pri_fifo.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pri_fifo.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pri_fifo.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pri_fifo.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pri_fifo.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pri_fifo.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+pri_fifo.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+pri_lqf.o: /usr/include/string.h /usr/include/features.h
+pri_lqf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pri_lqf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pri_lqf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+pri_lqf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pri_lqf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+pri_lqf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+pri_lqf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+pri_lqf.o: /usr/include/endian.h /usr/include/bits/endian.h
+pri_lqf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pri_lqf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pri_lqf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pri_lqf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pri_lqf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pri_lqf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pri_lqf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pri_lqf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pri_lqf.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+pri_lqf.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+pri_lqf.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+pri_lqf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+pri_lqf.o: /usr/include/bits/posix2_lim.h
+pri_mcast_random.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+pri_mcast_random.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pri_mcast_random.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pri_mcast_random.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pri_mcast_random.o: /usr/include/libio.h /usr/include/_G_config.h
+pri_mcast_random.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+pri_mcast_random.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+pri_mcast_random.o: /usr/include/sys/types.h /usr/include/time.h
+pri_mcast_random.o: /usr/include/endian.h /usr/include/bits/endian.h
+pri_mcast_random.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pri_mcast_random.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pri_mcast_random.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pri_mcast_random.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pri_mcast_random.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pri_mcast_random.o: /usr/include/bits/huge_valf.h
+pri_mcast_random.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+pri_mcast_random.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+pri_mcast_random.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+pri_mcast_random.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+pri_mcast_random.o: ../latencyStats.h ../functionTable.h algorithm.h
+pri_ocf.o: /usr/include/string.h /usr/include/features.h
+pri_ocf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pri_ocf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pri_ocf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+pri_ocf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pri_ocf.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+pri_ocf.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+pri_ocf.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+pri_ocf.o: /usr/include/endian.h /usr/include/bits/endian.h
+pri_ocf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pri_ocf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pri_ocf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pri_ocf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pri_ocf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pri_ocf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pri_ocf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pri_ocf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pri_ocf.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+pri_ocf.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+pri_ocf.o: assign2.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+pri_ocf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+pri_ocf.o: /usr/include/bits/posix2_lim.h
+pri_islip.o: /usr/include/string.h /usr/include/features.h
+pri_islip.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pri_islip.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pri_islip.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+pri_islip.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pri_islip.o: /usr/include/libio.h /usr/include/_G_config.h
+pri_islip.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+pri_islip.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+pri_islip.o: /usr/include/sys/types.h /usr/include/time.h
+pri_islip.o: /usr/include/endian.h /usr/include/bits/endian.h
+pri_islip.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pri_islip.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pri_islip.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pri_islip.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pri_islip.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pri_islip.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pri_islip.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pri_islip.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pri_islip.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+pri_islip.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+pri_islip.o: pri_rr.h scheduleStats.h miscfns.h
+pri_combo.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+pri_combo.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pri_combo.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pri_combo.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pri_combo.o: /usr/include/libio.h /usr/include/_G_config.h
+pri_combo.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+pri_combo.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+pri_combo.o: /usr/include/sys/types.h /usr/include/time.h
+pri_combo.o: /usr/include/endian.h /usr/include/bits/endian.h
+pri_combo.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pri_combo.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pri_combo.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pri_combo.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pri_combo.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pri_combo.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pri_combo.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pri_combo.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pri_combo.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+pri_combo.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h
+pristrict_lqf.o: /usr/include/string.h /usr/include/features.h
+pristrict_lqf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pristrict_lqf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pristrict_lqf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+pristrict_lqf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pristrict_lqf.o: /usr/include/libio.h /usr/include/_G_config.h
+pristrict_lqf.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+pristrict_lqf.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+pristrict_lqf.o: /usr/include/sys/types.h /usr/include/time.h
+pristrict_lqf.o: /usr/include/endian.h /usr/include/bits/endian.h
+pristrict_lqf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pristrict_lqf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pristrict_lqf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pristrict_lqf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pristrict_lqf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pristrict_lqf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pristrict_lqf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pristrict_lqf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pristrict_lqf.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+pristrict_lqf.o: ../switchStats.h ../types.h ../latencyStats.h
+pristrict_lqf.o: ../functionTable.h algorithm.h assign2.h
+pristrict_lqf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+pristrict_lqf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+pristrict_lqf.o: /usr/include/bits/posix2_lim.h
+pristrict_ocf.o: /usr/include/string.h /usr/include/features.h
+pristrict_ocf.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+pristrict_ocf.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+pristrict_ocf.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+pristrict_ocf.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+pristrict_ocf.o: /usr/include/libio.h /usr/include/_G_config.h
+pristrict_ocf.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+pristrict_ocf.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+pristrict_ocf.o: /usr/include/sys/types.h /usr/include/time.h
+pristrict_ocf.o: /usr/include/endian.h /usr/include/bits/endian.h
+pristrict_ocf.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+pristrict_ocf.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+pristrict_ocf.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+pristrict_ocf.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+pristrict_ocf.o: /usr/include/math.h /usr/include/bits/huge_val.h
+pristrict_ocf.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+pristrict_ocf.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+pristrict_ocf.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+pristrict_ocf.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+pristrict_ocf.o: ../switchStats.h ../types.h ../latencyStats.h
+pristrict_ocf.o: ../functionTable.h algorithm.h assign2.h
+pristrict_ocf.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+pristrict_ocf.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+pristrict_ocf.o: /usr/include/bits/posix2_lim.h
+rr.o: /usr/include/string.h /usr/include/features.h
+rr.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+rr.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+rr.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+rr.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+rr.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+rr.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+rr.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+rr.o: /usr/include/endian.h /usr/include/bits/endian.h
+rr.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+rr.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+rr.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+rr.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+rr.o: /usr/include/math.h /usr/include/bits/huge_val.h
+rr.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+rr.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+rr.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+rr.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+rr.o: ../latencyStats.h ../functionTable.h algorithm.h rr.h scheduleStats.h
+rr.o: miscfns.h
+scheduleStats.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+scheduleStats.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+scheduleStats.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+scheduleStats.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+scheduleStats.o: /usr/include/libio.h /usr/include/_G_config.h
+scheduleStats.o: /usr/include/wchar.h /usr/include/bits/stdio_lim.h
+scheduleStats.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+scheduleStats.o: /usr/include/sys/types.h /usr/include/time.h
+scheduleStats.o: /usr/include/endian.h /usr/include/bits/endian.h
+scheduleStats.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+scheduleStats.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+scheduleStats.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+scheduleStats.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+scheduleStats.o: /usr/include/math.h /usr/include/bits/huge_val.h
+scheduleStats.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+scheduleStats.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+scheduleStats.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+scheduleStats.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h
+scheduleStats.o: ../switchStats.h ../types.h ../latencyStats.h
+scheduleStats.o: ../functionTable.h scheduleStats.h
+islip.o: /usr/include/string.h /usr/include/features.h
+islip.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+islip.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+islip.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+islip.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+islip.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+islip.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+islip.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+islip.o: /usr/include/endian.h /usr/include/bits/endian.h
+islip.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+islip.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+islip.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+islip.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+islip.o: /usr/include/math.h /usr/include/bits/huge_val.h
+islip.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+islip.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+islip.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+islip.o: ../bitmap.h ../stat.h ../histogram.h ../lists.h ../switchStats.h
+islip.o: ../types.h ../latencyStats.h ../functionTable.h algorithm.h rr.h
+islip.o: scheduleStats.h miscfns.h
+wfa.o: /usr/include/string.h /usr/include/features.h
+wfa.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+wfa.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+wfa.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+wfa.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+wfa.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+wfa.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+wfa.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+wfa.o: /usr/include/endian.h /usr/include/bits/endian.h
+wfa.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+wfa.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+wfa.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+wfa.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+wfa.o: /usr/include/math.h /usr/include/bits/huge_val.h
+wfa.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+wfa.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+wfa.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+wfa.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+wfa.o: ../latencyStats.h ../functionTable.h algorithm.h assign2.h
+wfa.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+wfa.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+wfa.o: /usr/include/bits/posix2_lim.h
+wwfa.o: /usr/include/string.h /usr/include/features.h
+wwfa.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+wwfa.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+wwfa.o: /usr/include/xlocale.h ../sim.h /usr/include/stdio.h
+wwfa.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+wwfa.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+wwfa.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+wwfa.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/time.h
+wwfa.o: /usr/include/endian.h /usr/include/bits/endian.h
+wwfa.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+wwfa.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+wwfa.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+wwfa.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+wwfa.o: /usr/include/math.h /usr/include/bits/huge_val.h
+wwfa.o: /usr/include/bits/huge_valf.h /usr/include/bits/huge_vall.h
+wwfa.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+wwfa.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h ../bitmap.h
+wwfa.o: ../stat.h ../histogram.h ../lists.h ../switchStats.h ../types.h
+wwfa.o: ../latencyStats.h ../functionTable.h algorithm.h wwfa.h
+wwfa.o: scheduleStats.h

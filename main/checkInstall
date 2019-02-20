@@ -1,0 +1,82 @@
+#!/bin/csh
+
+#
+# Run each test configuration file from the
+# input directory: TEST_INPS and compare with 
+# the output files in directory: TEST_OUTPS
+#
+
+if( $1 == "-create" ) then
+        goto CREATE
+endif
+
+
+echo --------------------------------------------------------------------
+echo Will perform regression test on each of the following config files:
+foreach file (TEST_INPS/*x*)
+        echo $file
+end
+echo --------------------------------------------------------------------
+echo --------------------------------------------------------------------
+
+set testNumber=0
+set numTestsFailed=0
+
+cd TEST_INPS
+
+/bin/rm -rf ./tmp
+mkdir ./tmp
+mkdir ./tmp/scratchcheckinstallresults/
+mkdir ./tmp/newcheckinstallresults/
+mkdir ./tmp/oldcheckinstallresults/
+
+foreach file (*x*)
+       # Extract cmd line from 1st line of config file
+       @ testNumber++
+       echo -n "  Test $testNumber : $file ...."
+       set CMD = `head -1 $file | sed 's/#//g'`
+			 echo $CMD
+       $CMD -f $file > ./tmp/scratchcheckinstallresults/$file
+	   cat ./tmp/scratchcheckinstallresults/$file | tail +7 | grep -v "#" > ./tmp/newcheckinstallresults/$file
+	   cat ../TEST_OUTPS/$file | tail +7 | grep -v "#" > ./tmp/oldcheckinstallresults/$file
+       diff ./tmp/newcheckinstallresults/$file ./tmp/oldcheckinstallresults/$file > /dev/null
+       if ( $status != 0 ) then
+        echo FAILED
+        echo -------------------------------------------------------------
+        @ numTestsFailed++
+       else
+        echo OK.
+       endif
+end
+/bin/rm -rf ./tmp
+
+
+echo "############################"
+echo $testNumber tests completed.
+echo $numTestsFailed failed.
+echo "############################"
+
+exit
+
+CREATE:
+
+# Make test outputs
+echo --------------------------------------------------------------------
+echo Will create regression test outputs for each of the following config files:
+foreach file (TEST_INPS/*x*)
+        echo $file
+end
+echo --------------------------------------------------------------------
+
+set testNumber=0
+rm -f TEST_OUTPS/*.*
+
+cd TEST_INPS
+foreach file (*x*)
+       # Extract cmd line from 1st line of config file
+       @ testNumber++
+       echo Test $testNumber : $file
+       set CMD = `head -1 $file | sed 's/#//g'`
+			 echo $CMD
+       $CMD -f $file > ../TEST_OUTPS/$file
+end

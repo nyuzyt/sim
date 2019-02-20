@@ -1,0 +1,149 @@
+ACC=
+CC=$(ACC) gcc
+REMCFLAGS     = -Wall -Wshadow -I.. -DLIST_STATS -DLIST_HISTOGRAM $(SIMGRAPH)
+
+DEST	      = .
+
+HDRS	      = outputAction.h \
+		outputActionTable.h
+
+INSTALL	      = /etc/install
+
+LD	      = ld
+
+LDFLAGS	      =
+
+LIBS	      =
+
+MAKEFILE      = Makefile
+
+OBJS	      = ${SRCS:.c=.o}
+
+PRINT	      = pr
+
+PROGRAM       = outputActions.o
+
+SHELL	      = /bin/sh
+
+SRCS	      = defaultOutputAction.c \
+		strictPriorityOutputAction.c \
+		subportOutputAction.c
+
+SYSHDRS	      =
+
+all:		    
+		$(MAKE) optall
+
+optall:		
+		$(MAKE) $(PROGRAM) CFLAGS="-O3 $(REMCFLAGS)"
+
+debugall:	
+		$(MAKE) $(PROGRAM) CFLAGS="-g $(REMCFLAGS)"
+
+
+$(PROGRAM)::     $(OBJS) $(LIBS)
+		@echo "Linking clean sim: $(PROGRAM) ..."
+		$(LD) -r $(OBJS) $(LDFLAGS) $(LIBS) -o $(PROGRAM)
+		@echo "done"
+
+clean:;		rm -f $(OBJS) $(PROGRAM) core
+
+clobber:;	rm -f $(OBJS) $(PROGRAM) core tags
+
+##depend:;	@mkmf -f $(MAKEFILE) ROOT=$(ROOT)
+
+depend:;	makedepend -o.o -- $(REMCFLAGS) -- $(SRCS)
+
+echo:;		@echo $(HDRS) $(SRCS)
+
+index:;		ctags -wx $(HDRS) $(SRCS)
+
+install::	$(PROGRAM)
+		@echo Installing $(PROGRAM) in $(DEST)
+#		@-strip $(PROGRAM)
+		@if [ $(DEST) != . ]; then \
+		(rm -f $(DEST)/$(PROGRAM); $(INSTALL) -f $(DEST) $(PROGRAM)); fi
+
+print:;		@$(PRINT) $(HDRS) $(SRCS)
+
+tags:           $(HDRS) $(SRCS); @ctags $(HDRS) $(SRCS)
+
+update:		$(DEST)/$(PROGRAM)
+
+###
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+defaultOutputAction.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+defaultOutputAction.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+defaultOutputAction.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+defaultOutputAction.o: /usr/include/bits/types.h
+defaultOutputAction.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+defaultOutputAction.o: /usr/include/_G_config.h /usr/include/wchar.h
+defaultOutputAction.o: /usr/include/bits/stdio_lim.h
+defaultOutputAction.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+defaultOutputAction.o: /usr/include/sys/types.h /usr/include/time.h
+defaultOutputAction.o: /usr/include/endian.h /usr/include/bits/endian.h
+defaultOutputAction.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+defaultOutputAction.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+defaultOutputAction.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+defaultOutputAction.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+defaultOutputAction.o: /usr/include/math.h /usr/include/bits/huge_val.h
+defaultOutputAction.o: /usr/include/bits/huge_valf.h
+defaultOutputAction.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+defaultOutputAction.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+defaultOutputAction.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+defaultOutputAction.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+defaultOutputAction.o: ../latencyStats.h ../functionTable.h outputAction.h
+strictPriorityOutputAction.o: ../sim.h /usr/include/stdio.h
+strictPriorityOutputAction.o: /usr/include/features.h
+strictPriorityOutputAction.o: /usr/include/bits/predefs.h
+strictPriorityOutputAction.o: /usr/include/sys/cdefs.h
+strictPriorityOutputAction.o: /usr/include/bits/wordsize.h
+strictPriorityOutputAction.o: /usr/include/gnu/stubs.h
+strictPriorityOutputAction.o: /usr/include/bits/types.h
+strictPriorityOutputAction.o: /usr/include/bits/typesizes.h
+strictPriorityOutputAction.o: /usr/include/libio.h /usr/include/_G_config.h
+strictPriorityOutputAction.o: /usr/include/wchar.h
+strictPriorityOutputAction.o: /usr/include/bits/stdio_lim.h
+strictPriorityOutputAction.o: /usr/include/bits/sys_errlist.h
+strictPriorityOutputAction.o: /usr/include/stdlib.h /usr/include/sys/types.h
+strictPriorityOutputAction.o: /usr/include/time.h /usr/include/endian.h
+strictPriorityOutputAction.o: /usr/include/bits/endian.h
+strictPriorityOutputAction.o: /usr/include/bits/byteswap.h
+strictPriorityOutputAction.o: /usr/include/sys/select.h
+strictPriorityOutputAction.o: /usr/include/bits/select.h
+strictPriorityOutputAction.o: /usr/include/bits/sigset.h
+strictPriorityOutputAction.o: /usr/include/bits/time.h
+strictPriorityOutputAction.o: /usr/include/sys/sysmacros.h
+strictPriorityOutputAction.o: /usr/include/bits/pthreadtypes.h
+strictPriorityOutputAction.o: /usr/include/alloca.h /usr/include/math.h
+strictPriorityOutputAction.o: /usr/include/bits/huge_val.h
+strictPriorityOutputAction.o: /usr/include/bits/huge_valf.h
+strictPriorityOutputAction.o: /usr/include/bits/huge_vall.h
+strictPriorityOutputAction.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+strictPriorityOutputAction.o: /usr/include/bits/mathdef.h
+strictPriorityOutputAction.o: /usr/include/bits/mathcalls.h ../bitmap.h
+strictPriorityOutputAction.o: ../stat.h ../histogram.h ../lists.h
+strictPriorityOutputAction.o: ../switchStats.h ../types.h ../latencyStats.h
+strictPriorityOutputAction.o: ../functionTable.h outputAction.h
+subportOutputAction.o: ../sim.h /usr/include/stdio.h /usr/include/features.h
+subportOutputAction.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
+subportOutputAction.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+subportOutputAction.o: /usr/include/bits/types.h
+subportOutputAction.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+subportOutputAction.o: /usr/include/_G_config.h /usr/include/wchar.h
+subportOutputAction.o: /usr/include/bits/stdio_lim.h
+subportOutputAction.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+subportOutputAction.o: /usr/include/sys/types.h /usr/include/time.h
+subportOutputAction.o: /usr/include/endian.h /usr/include/bits/endian.h
+subportOutputAction.o: /usr/include/bits/byteswap.h /usr/include/sys/select.h
+subportOutputAction.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+subportOutputAction.o: /usr/include/bits/time.h /usr/include/sys/sysmacros.h
+subportOutputAction.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+subportOutputAction.o: /usr/include/math.h /usr/include/bits/huge_val.h
+subportOutputAction.o: /usr/include/bits/huge_valf.h
+subportOutputAction.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
+subportOutputAction.o: /usr/include/bits/nan.h /usr/include/bits/mathdef.h
+subportOutputAction.o: /usr/include/bits/mathcalls.h ../bitmap.h ../stat.h
+subportOutputAction.o: ../histogram.h ../lists.h ../switchStats.h ../types.h
+subportOutputAction.o: ../latencyStats.h ../functionTable.h outputAction.h
